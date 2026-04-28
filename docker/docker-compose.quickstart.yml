@@ -17,6 +17,7 @@ services:
       BETTER_AUTH_SECRET: "${BETTER_AUTH_SECRET:?BETTER_AUTH_SECRET must be set}"
     volumes:
       - paperclip-data:/paperclip
+      - /home/alekkdev/Repositories/muchaw-knowledge:/workspace/muchaw-knowledge:ro
     deploy:
       resources:
         limits:
