@@ -16,9 +16,27 @@ export function resolveRawGitHubUrl(hostname: string, owner: string, repo: strin
     : `https://${hostname}/raw/${owner}/${repo}/${ref}/${p}`;
 }
 
+function readGitHubToken() {
+  return process.env.GITHUB_TOKEN?.trim() || process.env.GH_TOKEN?.trim() || null;
+}
+
+function withGitHubAuthHeaders(init?: RequestInit): RequestInit {
+  const token = readGitHubToken();
+  if (!token) return init ?? {};
+
+  const headers = new Headers(init?.headers);
+  if (!headers.has("authorization")) {
+    headers.set("authorization", `Bearer ${token}`);
+  }
+  return {
+    ...(init ?? {}),
+    headers,
+  };
+}
+
 export async function ghFetch(url: string, init?: RequestInit): Promise<Response> {
   try {
-    return await fetch(url, init);
+    return await fetch(url, withGitHubAuthHeaders(init));
   } catch {
     throw unprocessable(`Could not connect to ${new URL(url).hostname} — ensure the URL points to a GitHub or GitHub Enterprise instance`);
   }
