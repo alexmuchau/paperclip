@@ -22,6 +22,7 @@ services:
     volumes:
       - paperclip-data:/paperclip
       - /home/alekkdev/Repositories/muchaw-knowledge:/workspace/muchaw-knowledge:ro
+      - /home/alekkdev/Repositories/muchaw-knowledge/agent-output:/workspace/muchaw-knowledge/agent-output:rw
     deploy:
       resources:
         limits:
