@@ -7,9 +7,11 @@ services:
     ports:
       - "127.0.0.1:3100:3100"
     environment:
+      PATH: "/paperclip/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
       HOST: "0.0.0.0"
       PAPERCLIP_BIND: "lan"
       PAPERCLIP_HOME: "/paperclip"
+      RTK_TELEMETRY_DISABLED: "1"
       OPENAI_API_KEY: "${OPENAI_API_KEY:-}"
       ANTHROPIC_API_KEY: "${ANTHROPIC_API_KEY:-}"
       GITHUB_TOKEN: "${GITHUB_TOKEN:-}"
